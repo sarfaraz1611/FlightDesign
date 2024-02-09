@@ -15,7 +15,7 @@ function FlightsCard({ flightDetails }) {
       {flightDetails &&
         flightDetails?.map((flight, index) => (
           <div
-            class="flex w-[100%] flex-col lg:flex-row md:m-2 md:p-3  bg-white  border border-gray-200 rounded-lg shadow md:flex-row "
+            class="flex w-[100%] flex-col lg:flex-row md:my-2  md:ml-2 md:p-3  bg-white  border border-gray-200 rounded-lg shadow md:flex-row "
             // class="flex m-2 p-3 self-start  items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 "
             // onClick={() => navigate(`/flightBooking/${flight?.id}`)}
           >
