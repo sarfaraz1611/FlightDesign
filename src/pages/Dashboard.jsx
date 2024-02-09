@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const {
@@ -28,8 +29,14 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  /**
+   * Handles the form submission event.
+   * @param {Event} e - The form submission event.
+   * @returns None
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const formData = {
       from: from,
       to: to,
@@ -37,12 +44,35 @@ function Dashboard() {
       returnDate: dayjs(returnDate).format("YYYY-MM-DD"),
       checked,
     };
-    console.log("Form submitted:", { formData });
-    navigate("/flights", { state: formData });
+
+
+   
+    /**
+     * Validates the form data for flight search and navigates to the flights page if all required fields are filled.
+     * @param {{string}} from - The departure location.
+     * @param {{string}} to - The destination location.
+     * @param {{string}} departDate - The departure date.
+     * @param {{string}} returnDate - The return date (optional for one-way trips).
+     * @param {{string}} checked - The value of the radio button indicating the trip type.
+     * @param {{object}} formData - The form data to pass to the flights page.
+     * @returns None
+     */
+    if (
+      !from ||
+      !to ||
+      !departDate ||
+      (!returnDate && checked?.value == "Round Trip")
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    } else {
+      navigate("/flights", { state: formData });
+    }
   };
 
   return (
     <>
+      {/* Dashboard Img Div */}
       <div
         className="relative h-[75vh] overflow-scroll pt-[50px] flex flex-col  "
         style={{
@@ -52,6 +82,8 @@ function Dashboard() {
           backgroundPosition: "center",
         }}
       >
+        {/* Dashboard Quate div */}
+
         <div className="  ml-[10%]  mt-[20vh]">
           <h1
             className="font-semibold text-white w-2/3 lg:w-[40%] "
@@ -65,7 +97,6 @@ function Dashboard() {
           <p
             className="  font-medium text-white lg:mt-6"
             style={{
-              //  fontFamily: "Montserrat/Medium/20px",
               fontSize: "min(20px,4vw)",
             }}
           >
@@ -73,6 +104,10 @@ function Dashboard() {
           </p>
         </div>
       </div>
+
+      {/* 
+White Form in Dashboard  for filter  the flight
+       */}
       <form
         onSubmit={handleSubmit}
         className="flex  justify-center mt-[-10%] sm:mt-[-20px] 2xl:mt-[-60px] "
@@ -81,7 +116,9 @@ function Dashboard() {
           <h1 className="text-[#112211] text-[20px] font-medium">
             Where are you flying?{" "}
           </h1>
-
+          {/* 
+individual form
+       */}
           <div className="flex flex-col  lg:flex-row mb-5">
             <div className="flex mb-2 lg:mb-0 lg:mr-2 flex-col lg:py-3 bg-white rounded-md min min-w-[20%]">
               <Autocomplete
@@ -102,9 +139,8 @@ function Dashboard() {
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={destinationCountriesTo.filter((place) => {
-                  return place !== from;
-                })}
+                options={destinationCountriesTo ? destinationCountriesTo.filter((place) => place !== from) : []}
+
                 value={to}
                 onChange={(event, value) => {
                   setTo(value);
@@ -127,13 +163,24 @@ function Dashboard() {
                 renderInput={(params) => <TextField {...params} label="Trip" />}
               />
             </div>
+            {/* 
+individual form datePicker
+       */}
             <div className="flex lg:mx-2 flex-col  lg:flex-row  bg-white rounded-md lg:p-[10px] min-w-[30%]   ">
               <div className="flex mb-3 flex-col bg-white rounded-3xl lg:mr-2  border-2xl min-w-[40%] ">
                 <DatePicker
                   label={"Departure"}
-                  className="border-0"
                   value={departDate}
                   minDate={dayjs()}
+                  onInputChange={() => {}}
+                  slotProps={{
+                    textField: {
+                      InputProps: { readOnly: true },
+                      className: "calender-input-box text-black",
+                      disabled: true,
+                    },
+                  }}
+                  slots={{ textField: TextField }}
                   onChange={(newValue) => setDepartDate(newValue)}
                 />
               </div>
@@ -143,13 +190,25 @@ function Dashboard() {
                   label={"Return"}
                   value={returnDate}
                   minDate={departDate}
+                  onInputChange={() => {}}
+                  slotProps={{
+                    textField: {
+                      InputProps: { readOnly: true },
+                      className: "calender-input-box  border-black text-black",
+                      disabled: true,
+                    },
+                  }}
+                  slots={{ textField: TextField }}
                   onChange={(newValue) => setReturnDate(newValue)}
                 />
               </div>
             </div>
           </div>
+          {/* 
+bottom buttons for search
+       */}
           <div className="flex  justify-end">
-            <p   className=" flex   rounded font-[14px] items-center  p-3  mr-5  text-[#112211] ">
+            <p className=" flex   rounded font-[14px] items-center  p-3  mr-5  text-[#112211] ">
               + Add Promo Code
             </p>
             <button

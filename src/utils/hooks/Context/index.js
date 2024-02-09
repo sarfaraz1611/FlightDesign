@@ -19,6 +19,12 @@ function ProvideApi() {
 
 
   const url = " https://api.npoint.io/4829d4ab0e96bfab50e7";
+  /**
+   * Fetches data from the specified URL using the Fetch API.
+   * @param {string} url - The URL to fetch data from.
+   * @returns None
+   * @throws {Error} If the network response is not ok.
+   */
   function fetchApi() {
     fetch(url)
       .then((response) => {
@@ -40,6 +46,11 @@ function ProvideApi() {
     fetchApi();
   }, []);
 
+  /**
+   * Filters an array of flight details based on the provided form data.
+   * @param {object} formData - The form data object containing the filter criteria.
+   * @returns {array} - An array of flight details that match the filter criteria.
+   */
   function filteredFlights(formData) {
     const filtredFlightDetails = flightDetails.filter((flight) => {
       console.log(formData,'insdei');
@@ -63,6 +74,14 @@ function ProvideApi() {
   const destinationCountriesFrom = [];
   const destinationCountriesTo = [];
 
+  /**
+   * Iterates over an array of flight details and extracts the source and destination cities.
+   * Adds the source city to the destinationCountriesFrom array if it is not already included.
+   * Adds the destination city to the destinationCountriesTo array if it is not already included.
+   * @param {Array} flightDetails - An array of flight details objects.
+   * @returns None
+   */
+
   flightDetails.forEach((flight) => {
     const sourceCity = flight?.displayData.source.airport.cityName;
     const destinationCity = flight?.displayData.destination.airport.cityName;
@@ -73,6 +92,7 @@ function ProvideApi() {
       destinationCountriesTo.push(destinationCity);
     }
   });
+  
   const Stops = [
     { label: "One Way", value: "1 way" },
     { label: "Round Trip", value: "Round Trip" },

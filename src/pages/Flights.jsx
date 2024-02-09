@@ -12,8 +12,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import FlightDetail from "../Component/FlightModal";
 import Slider from "@mui/material/Slider";
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 function Flights() {
   const location = useLocation();
   const formData = location.state;
@@ -47,6 +47,11 @@ function Flights() {
     { id: 4, label: "Etihad ", isChecked: false },
   ]);
 
+  /**
+   * Handles the form submission event.
+   * @param {Event} e - The form submission event.
+   * @returns None
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -57,16 +62,40 @@ function Flights() {
       returnDate: dayjs(returnDate).format("YYYY-MM-DD"),
       checked,
     };
-    // console.log(formData,'dffdsd');
-    flightdata = filteredFlights(formData);
-    // console.log(flightdata,'flightdata');
 
-    setFilterFlights(flightdata);
+    /**
+     * Validates the form data and sets the filtered flights based on the provided criteria.
+     * If any required fields are missing or the form data is invalid, an error toast is displayed.
+     * @param {{string}} from - The departure location.
+     * @param {{string}} to - The destination location.
+     * @param {{string}} departDate - The departure date.
+     * @param {{string}} returnDate - The return date (optional for one-way flights).
+     * @param {{string}} checked - The selected flight type (e.g., "Round Trip", "One Way").
+     * @returns None
+     */
+    if (
+      !from ||
+      !to ||
+      !departDate ||
+      (!returnDate && checked?.value == "Round Trip")
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    } else {
+      flightdata = filteredFlights(formData);
+      setFilterFlights(flightdata);
+    }
   };
 
   useEffect(() => {
     setFilterFlights(flightdata);
   }, []);
+
+  /**
+   * Handles the change event of a checkbox.
+   * @param {{string}} id - The id of the checkbox that was changed.
+   * @returns None
+   */
   const handleCheckboxChange = (id) => {
     const updatedCheckboxes = checkboxes.map((checkbox) =>
       checkbox.id === id
@@ -78,14 +107,7 @@ function Flights() {
 
   return (
     <div className="  lg:min-h-screen bg-[#fafbfc]  ">
-      <div
-        className=" flex flex-col justify-center "
-        style={{
-          //   backgroundImage: `url(${flower})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <div className=" flex flex-col justify-center ">
         <div className=" lg:sticky mt-[11%]  z-[99] ">
           <form
             onSubmit={handleSubmit}
@@ -172,9 +194,7 @@ function Flights() {
         <div className="flex mx-10 mt-5 justify-center">
           {/* sidebar */}
           <div className="  hidden lg:flex  bg-white flex-col w-[20%] h-screen  pr-6 border-r shadow-md rounded-lg p-4 ">
-            <h1 className="font-semibold  font-medium text-[20px]">
-              Filters
-            </h1>
+            <h1 className="font-semibold  font-medium text-[20px]">Filters</h1>
             <div>
               <div className="flex -">
                 <h1 className="text-[16px] font-medium  font-semibold p-2">
@@ -252,7 +272,7 @@ function Flights() {
               <hr className="mt-4" />
             </div>
           </div>
-          
+
           {/* caard */}
           <div className=" w-[75%] ">
             <div className="   bg-white  hidden md:flex   md:flex-row justify-around  ml-2 shadow-md rounded-lg  ">
