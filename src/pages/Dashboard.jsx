@@ -157,8 +157,10 @@ individual form
                 options={Stops ||[]}
                 value={checked}
                 onChange={(event, value) => {
+
                   setChecked(value);
                 }}
+                error={true}
                 // sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Trip" />}
               />
@@ -177,7 +179,7 @@ individual form datePicker
                     textField: {
                       InputProps: { readOnly: true },
                       className: "calender-input-box text-black",
-                      disabled: true,
+                      // disabled: true,
                     },
                   }}
                   slots={{ textField: TextField }}
@@ -195,7 +197,7 @@ individual form datePicker
                     textField: {
                       InputProps: { readOnly: true },
                       className: "calender-input-box  border-black text-black",
-                      disabled: true,
+                      // disabled: true,
                     },
                   }}
                   slots={{ textField: TextField }}

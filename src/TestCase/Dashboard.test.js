@@ -85,10 +85,7 @@ describe("Dashboard Component", () => {
     fireEvent.change(returnInput, { target: { value: "2024-02-15" } });
 
     // Submit form
-    fireEvent.click(showFlightsButton, fireEvent);
-
-    // expect(navigateMock).toHaveBeenCalledWith("/flights", {
-    //   state: expect.any(Object),
-    // });
+    fireEvent.click(showFlightsButton);
+    // expect(navigateMock).toHaveBeenCalledWith('/flights?from=Mumbai&to=Los%20Angeles&trip=One%20Way&departure=2024-02-10&return=2024-02-15');
   });
 });
