@@ -33,13 +33,14 @@ function Flights() {
     filteredFlights,
     destinationCountriesTo,
     destinationCountriesFrom,
-    filterFlihts,
+    filterflights,
     setFilterFlights,
     visiblestate,
     setVisiblestate,
   } = useApi();
 
   let flightdata = filteredFlights(formData);
+
   const [checkboxes, setCheckboxes] = useState([
     { id: 1, label: "Emirates", isChecked: false },
     { id: 2, label: "Fly Dubai", isChecked: false },
@@ -134,9 +135,8 @@ function Flights() {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={destinationCountriesTo.filter((place) => {
-                      return place !== from;
-                    })}
+                    options={destinationCountriesTo ? destinationCountriesTo.filter((place) => place !== from) : []
+                    }
                     value={to}
                     onChange={(event, value) => {
                       setTo(value);
@@ -309,12 +309,12 @@ function Flights() {
             </div>
 
             <div className="flex justify-center  flex-wrap   ">
-              {filterFlihts.length == 0 ? (
+              {!filterflights? (
                 <h1 className=" text-bold text-[40px]  mt-10 font-2xl text-[#0F1035] ">
                   No Flights Found
                 </h1>
               ) : (
-                <FlightsCard flightDetails={filterFlihts} />
+                <FlightsCard flightDetails={filterflights} />
               )}
             </div>
           </div>

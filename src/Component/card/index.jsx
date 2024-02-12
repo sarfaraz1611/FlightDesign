@@ -14,9 +14,9 @@ function FlightsCard({ flightDetails }) {
     <>
       {flightDetails &&
         flightDetails?.map((flight, index) => (
-          <div
-            class="flex w-[100%] flex-col lg:flex-row md:my-2  md:ml-2 md:p-3  bg-white  border border-gray-200 rounded-lg shadow md:flex-row "
-            // class="flex m-2 p-3 self-start  items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 "
+          <div data-testid="flights-card" key={index}
+            className="flex w-[100%] flex-col lg:flex-row md:my-2  md:ml-2 md:p-3  bg-white  border border-gray-200 rounded-lg shadow md:flex-row "
+            // className="flex m-2 p-3 self-start  items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 "
             // onClick={() => navigate(`/flightBooking/${flight?.id}`)}
           >
             <div className="lg:w-[25%] flex justify-center items-center">
@@ -52,33 +52,33 @@ function FlightsCard({ flightDetails }) {
                   <div className="flex w-[100%] lg:w-[60%] justify-around items-center">
                     <div className="flex">
                       <h1 className="font-semibold pr-3 text-[20px] ">
-                        {dayjs(flight.displayData.source.depTime).format(
+                        {dayjs(flight?.displayData?.source?.depTime).format(
                           "hh-mm"
                         )}
                       </h1>
                       -
                       <h1 className="font-semibold  pl-3 text-[20px]">
-                        {dayjs(flight?.displayData.destination.arrTime).format(
+                        {dayjs(flight?.displayData?.destination.arrTime).format(
                           "hh-mm"
                         )}
                       </h1>
                     </div>
 
                     <h6 className="text-[18px] font-semibold">
-                      {flight?.displayData.stopInfo}
+                      {flight?.displayData?.stopInfo}
                     </h6>
 
                     <h6 className="text-[20px]  font-semibold text-grey">
-                      {flight?.displayData.totalDuration}
+                      {flight?.displayData?.totalDuration}
                     </h6>
                   </div>
                   <div className="flex justify-between w-[100%] lg:w-[60%]">
-                    <h1 class="  text-sm ml-8">
-                      {flight?.displayData.airlines[0].airlineName}
+                    <h1 className="  text-sm ml-8">
+                      {flight?.displayData?.airlines[0].airlineName}
                     </h1>
                     <h3 className="text-sm">
                       Airline Code :{" "}
-                      {flight?.displayData.airlines[0].airlineCode}
+                      {flight?.displayData?.airlines[0].airlineCode}
                     </h3>
                   </div>
                 </div>
@@ -86,33 +86,33 @@ function FlightsCard({ flightDetails }) {
                   <div className="flex w-[100%] lg:w-[60%] justify-around items-center">
                     <div className="flex">
                       <h1 className="font-semibold pr-3 text-[20px] ">
-                        {dayjs(flight.displayData.source.depTime).format(
+                        {dayjs(flight.displayData?.source.depTime).format(
                           "hh-mm"
                         )}
                       </h1>
                       -
                       <h1 className="font-semibold  pl-3 text-[20px]">
-                        {dayjs(flight?.displayData.destination.arrTime).format(
+                        {dayjs(flight?.displayData?.destination.arrTime).format(
                           "hh-mm"
                         )}
                       </h1>
                     </div>
 
                     <h6 className="text-[18px] font-semibold">
-                      {flight?.displayData.stopInfo}
+                      {flight?.displayData?.stopInfo}
                     </h6>
 
                     <h6 className="text-[20px]  font-semibold text-grey">
-                      {flight?.displayData.totalDuration}
+                      {flight?.displayData?.totalDuration}
                     </h6>
                   </div>
                   <div className="flex justify-between w-[100%] lg:w-[60%]">
-                    <h1 class="  text-sm ml-8">
-                      {flight?.displayData.airlines[0].airlineName}
+                    <h1 className="  text-sm ml-8">
+                      {flight?.displayData?.airlines[0].airlineName}
                     </h1>
                     <h3 className="text-sm">
                       Airline Code :{" "}
-                      {flight?.displayData.airlines[0].airlineCode}
+                      {flight?.displayData?.airlines[0].airlineCode}
                     </h3>
                   </div>
                 </div>

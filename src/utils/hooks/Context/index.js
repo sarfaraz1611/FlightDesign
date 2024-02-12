@@ -1,4 +1,4 @@
-// Hook (use-auth.js)
+
 import dayjs from "dayjs";
 import React, { useContext, createContext, useState, useEffect } from "react";
 
@@ -13,7 +13,7 @@ function ProvideApi() {
   const [departDate, setDepartDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
   const [checked, setChecked] = useState('');
-  const [filterFlihts, setFilterFlights] = useState(false);
+  const [filterflights, setFilterFlights] = useState(false);
   const [visiblestate, setVisiblestate] = useState(false);
   const [flightId, setFlightId] = useState(0);
 
@@ -25,7 +25,7 @@ function ProvideApi() {
    * @returns None
    * @throws {Error} If the network response is not ok.
    */
-  function fetchApi() {
+  function fetchApi(url) {
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -36,6 +36,7 @@ function ProvideApi() {
       })
       .then((data) => {
         setFlightDetails(data?.data.result);
+      
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -43,7 +44,7 @@ function ProvideApi() {
   }
 
   useEffect(() => {
-    fetchApi();
+    fetchApi(url);
   }, []);
 
   /**
@@ -98,13 +99,6 @@ function ProvideApi() {
     { label: "Round Trip", value: "Round Trip" },
   ];
 
-
-
-
-
-
-
-
   return {
     flightDetails,
     filteredFlights,
@@ -120,11 +114,12 @@ function ProvideApi() {
     setChecked,
     destinationCountriesFrom,
     destinationCountriesTo,
-    filterFlihts,
+    filterflights,
     setFilterFlights,
     visiblestate, setVisiblestate,
     flightId, setFlightId,
-    Stops
+    Stops,
+    fetchApi
     
   };
 }

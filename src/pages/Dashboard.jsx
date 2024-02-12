@@ -124,7 +124,7 @@ individual form
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={destinationCountriesFrom}
+                options={destinationCountriesFrom||[]}
                 value={from}
                 onChange={(event, value) => {
                   setFrom(value);
@@ -154,7 +154,7 @@ individual form
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={Stops}
+                options={Stops ||[]}
                 value={checked}
                 onChange={(event, value) => {
                   setChecked(value);
