@@ -1,6 +1,6 @@
 # GetSetGo
 
-# Live link]('https://flight-design-8o7naojum-sarfaraz1611.vercel.app/')
+# [Live link]('https://flight-design-8o7naojum-sarfaraz1611.vercel.app/')
 
 ### Prerequisites
 
