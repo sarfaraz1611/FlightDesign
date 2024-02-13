@@ -1,4 +1,4 @@
-# [GetSetGo](https://flight-design-8o7naojum-sarfaraz1611.vercel.app/)
+# [GetSetGo](flight-design.vercel.app)
 
 
 ### Prerequisites
