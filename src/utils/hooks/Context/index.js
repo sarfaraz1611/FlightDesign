@@ -1,4 +1,3 @@
-
 import dayjs from "dayjs";
 import React, { useContext, createContext, useState, useEffect } from "react";
 
@@ -12,11 +11,10 @@ function ProvideApi() {
   const [to, setTo] = useState(null);
   const [departDate, setDepartDate] = useState(null);
   const [returnDate, setReturnDate] = useState(null);
-  const [checked, setChecked] = useState('');
+  const [checked, setChecked] = useState("");
   const [filterflights, setFilterFlights] = useState(false);
   const [visiblestate, setVisiblestate] = useState(false);
   const [flightId, setFlightId] = useState(0);
-
 
   const url = " https://api.npoint.io/4829d4ab0e96bfab50e7";
   /**
@@ -36,7 +34,6 @@ function ProvideApi() {
       })
       .then((data) => {
         setFlightDetails(data?.data.result);
-      
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -54,7 +51,7 @@ function ProvideApi() {
    */
   function filteredFlights(formData) {
     const filtredFlightDetails = flightDetails.filter((flight) => {
-      console.log(formData,'insdei');
+      // console.log(formData, "insdei");
       const departureDate = dayjs(flight.displayData.source.depTime).format(
         "YYYY-MM-DD"
       );
@@ -64,9 +61,9 @@ function ProvideApi() {
 
       return (
         (formData?.from === flight.displayData.source.airport.cityName &&
-          formData?.to === flight.displayData.destination.airport.cityName ||
-          formData?.departDate === departureDate ||
-        formData?.returnDate === destinationDate)
+          formData?.to === flight.displayData.destination.airport.cityName) ||
+        formData?.departDate === departureDate ||
+        formData?.returnDate === destinationDate
       );
     });
     return filtredFlightDetails;
@@ -83,7 +80,7 @@ function ProvideApi() {
    * @returns None
    */
 
-  flightDetails.forEach((flight) => {
+  flightDetails?.forEach((flight) => {
     const sourceCity = flight?.displayData.source.airport.cityName;
     const destinationCity = flight?.displayData.destination.airport.cityName;
     if (!destinationCountriesFrom.includes(sourceCity)) {
@@ -93,7 +90,7 @@ function ProvideApi() {
       destinationCountriesTo.push(destinationCity);
     }
   });
-  
+
   const Stops = [
     { label: "One Way", value: "1 way" },
     { label: "Round Trip", value: "Round Trip" },
@@ -116,11 +113,12 @@ function ProvideApi() {
     destinationCountriesTo,
     filterflights,
     setFilterFlights,
-    visiblestate, setVisiblestate,
-    flightId, setFlightId,
+    visiblestate,
+    setVisiblestate,
+    flightId,
+    setFlightId,
     Stops,
-    fetchApi
-    
+    fetchApi,
   };
 }
 

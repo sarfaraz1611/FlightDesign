@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { toast } from "react-toastify";
+import { useQuery, gql } from "@apollo/client";
 
 function Dashboard() {
   const {
@@ -45,8 +46,6 @@ function Dashboard() {
       checked,
     };
 
-
-   
     /**
      * Validates the form data for flight search and navigates to the flights page if all required fields are filled.
      * @param {{string}} from - The departure location.
@@ -69,6 +68,20 @@ function Dashboard() {
       navigate("/flights", { state: formData });
     }
   };
+
+  const TRACKS = gql`
+    query queryforDashboard {
+      TrackTheFlight {
+        id
+        airlineCode
+        flightNumber
+        airlineName
+        airlineLogo
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(TRACKS);
+  // console.log(data, "data", error, "error", loading);
 
   return (
     <>
@@ -124,7 +137,7 @@ individual form
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={destinationCountriesFrom||[]}
+                options={destinationCountriesFrom || []}
                 value={from}
                 onChange={(event, value) => {
                   setFrom(value);
@@ -139,8 +152,11 @@ individual form
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={destinationCountriesTo ? destinationCountriesTo.filter((place) => place !== from) : []}
-
+                options={
+                  destinationCountriesTo
+                    ? destinationCountriesTo.filter((place) => place !== from)
+                    : []
+                }
                 value={to}
                 onChange={(event, value) => {
                   setTo(value);
@@ -154,10 +170,9 @@ individual form
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={Stops ||[]}
+                options={Stops || []}
                 value={checked}
                 onChange={(event, value) => {
-
                   setChecked(value);
                 }}
                 error={true}
